@@ -1,0 +1,15 @@
+# Visual Studio
+.vs
+**/bin
+**/obj
+/.ionide
+/packages/*
+!/packages/*.config
+/.paket
+/.fake
+/paket-files
+/Aardvark.log
+
+
+# Paket dependency manager
+paket-files/

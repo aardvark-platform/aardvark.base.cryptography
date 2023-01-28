@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aardvark.Base.Cryptography", "Aardvark.Base.Cryptography\Aardvark.Base.Cryptography.csproj", "{57D866F4-76E4-4761-AC7B-21394EF4FABE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{6999D198-2D7C-4F55-A78A-5E07DF73D87C}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\build.cmd = ..\build.cmd
+		..\build.sh = ..\build.sh
+		..\LICENSE = ..\LICENSE
+		..\paket.dependencies = ..\paket.dependencies
+		..\paket.lock = ..\paket.lock
+		..\README.md = ..\README.md
+		..\RELEASE_NOTES.md = ..\RELEASE_NOTES.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aardvark.Base.Cryptography.Tests", "Aardvark.Base.Cryptography.Tests\Aardvark.Base.Cryptography.Tests.csproj", "{2BF4DAAA-5DB1-4D38-89F7-D5AF7AF6BF3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57D866F4-76E4-4761-AC7B-21394EF4FABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D866F4-76E4-4761-AC7B-21394EF4FABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D866F4-76E4-4761-AC7B-21394EF4FABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D866F4-76E4-4761-AC7B-21394EF4FABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF4DAAA-5DB1-4D38-89F7-D5AF7AF6BF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF4DAAA-5DB1-4D38-89F7-D5AF7AF6BF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF4DAAA-5DB1-4D38-89F7-D5AF7AF6BF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF4DAAA-5DB1-4D38-89F7-D5AF7AF6BF3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4822470A-A33D-43FB-AF6A-9E773A3ACD2F}
+	EndGlobalSection
+EndGlobal
