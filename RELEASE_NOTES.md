@@ -1,3 +1,6 @@
+### 0.2.1
+- fix async/dispose problem in Secrets.DecryptFileTo* functions
+
 ### 0.2.0
 - refactoring: all encrypt/decrypt combinations with systematic naming scheme
   - `Secrets.Encrypt[Stream|Buffer|String|File]To[Stream|Buffer|File]Async`

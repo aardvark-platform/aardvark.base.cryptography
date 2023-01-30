@@ -360,19 +360,22 @@ public class Secrets
     /// <summary>
     /// Decrypt file to stream.
     /// </summary>
-    public static Task DecryptFileToStreamAsync(string sourceFile, Stream target, string password)
+    public static async Task DecryptFileToStreamAsync(string sourceFile, Stream target, string password)
     {
-        using var sourceStream = GetFileReadStream(sourceFile);
-        return DecryptStreamToStreamAsync(sourceStream, target, password);
+        var sourceStream = GetFileReadStream(sourceFile);
+        await DecryptStreamToStreamAsync(sourceStream, target, password);
+        sourceStream.Dispose();
     }
 
     /// <summary>
     /// Decrypt file to buffer.
     /// </summary>
-    public static Task<byte[]> DecryptFileToBufferAsync(string sourceFile, string password)
+    public static async Task<byte[]> DecryptFileToBufferAsync(string sourceFile, string password)
     {
-        using var sourceStream = GetFileReadStream(sourceFile);
-        return DecryptStreamToBufferAsync(sourceStream, password);
+        var sourceStream = GetFileReadStream(sourceFile);
+        var result = await DecryptStreamToBufferAsync(sourceStream, password);
+        sourceStream.Dispose();
+        return result;
     }
 
     /// <summary>
@@ -380,18 +383,22 @@ public class Secrets
     /// </summary>
     public static async Task<string> DecryptFileToStringAsync(string sourceFile, string password)
     {
-        using var sourceStream = GetFileReadStream(sourceFile);
-        return await DecryptStreamToStringAsync(sourceStream, password);
+        var sourceStream = GetFileReadStream(sourceFile);
+        var result = await DecryptStreamToStringAsync(sourceStream, password);
+        sourceStream.Dispose();
+        return result;
     }
 
     /// <summary>
     /// Decrypt file to file.
     /// </summary>
-    public static Task DecryptFileToFileAsync(string sourceFile, string targetFile, string password)
+    public static async Task DecryptFileToFileAsync(string sourceFile, string targetFile, string password)
     {
-        using var sourceStream = GetFileReadStream(sourceFile);
-        using var targetStream = GetFileWriteStream(targetFile);
-        return DecryptStreamToStreamAsync(sourceStream, targetStream, password);
+        var sourceStream = GetFileReadStream(sourceFile);
+        var targetStream = GetFileWriteStream(targetFile);
+        await DecryptStreamToStreamAsync(sourceStream, targetStream, password);
+        sourceStream.Dispose();
+        targetStream.Dispose();
     }
 
     #endregion

@@ -20,7 +20,7 @@ namespace Aardvark.Base.Cryptography.Tests
             }
         }
 
-        private static byte[] ENCRYPTED_BUFFER = Secrets.EncryptStringToBufferAsync(SRC_STRING, PWD).Result;
+        private static readonly byte[] ENCRYPTED_BUFFER = Secrets.EncryptStringToBufferAsync(SRC_STRING, PWD).Result;
         private static Stream ENCRYPTED_STREAM => new MemoryStream(ENCRYPTED_BUFFER);
         private static TestFile ENCRYPTED_FILE
         {
@@ -32,35 +32,35 @@ namespace Aardvark.Base.Cryptography.Tests
             }
         }
 
-        private async Task CheckEncryptedAsync(MemoryStream encrypted)
+        private static async Task CheckEncryptedAsync(MemoryStream encrypted)
         {
             var decrypted = await Secrets.DecryptBufferToStringAsync(encrypted.ToArray(), PWD);
             Assert.True(decrypted == SRC_STRING);
         }
-        private async Task CheckEncryptedAsync(byte[] encrypted)
+        private static async Task CheckEncryptedAsync(byte[] encrypted)
         {
             var decrypted = await Secrets.DecryptBufferToStringAsync(encrypted, PWD);
             Assert.True(decrypted == SRC_STRING);
         }
-        private async Task CheckEncryptedAsync(TestFile encrypted)
+        private static async Task CheckEncryptedAsync(TestFile encrypted)
         {
             var decrypted = await Secrets.DecryptFileToStringAsync(encrypted.Path, PWD);
             Assert.True(decrypted == SRC_STRING);
         }
 
-        private void CheckDecrypted(string decrypted)
+        private static void CheckDecrypted(string decrypted)
         {
             Assert.True(decrypted == SRC_STRING);
         }
-        private void CheckDecryptedAsync(MemoryStream decrypted)
+        private static void CheckDecryptedAsync(MemoryStream decrypted)
         {
             CheckDecrypted(decrypted.ToArray());
         }
-        private void CheckDecrypted(byte[] decrypted)
+        private static void CheckDecrypted(byte[] decrypted)
         {
             CheckDecrypted(Encoding.UTF8.GetString(decrypted));
         }
-        private void CheckDecrypted(TestFile decrypted)
+        private static void CheckDecrypted(TestFile decrypted)
         {
             var s = File.ReadAllText(decrypted.Path);
             Assert.True(s == SRC_STRING);
@@ -327,6 +327,35 @@ namespace Aardvark.Base.Cryptography.Tests
             var plaintext1 = await Secrets.DecryptBufferToStringAsync(e1, password);
 
             Assert.True(plaintext0 == plaintext1);
+        }
+
+
+
+        [Fact]
+        public async Task RoundTrip_Large_File()
+        {
+            var sourceFile = Path.GetFullPath(@"../../../../../data/image.jpg");
+            var encryptedFile = sourceFile + ".encrypted";
+            var decryptedFile = sourceFile + ".decrypted.jpg";
+
+            try
+            {
+                await Secrets.EncryptFileToFileAsync(sourceFile, encryptedFile, "password");
+                await Secrets.DecryptFileToFileAsync(encryptedFile, decryptedFile, "password");
+
+                var buffer0 = File.ReadAllBytes(sourceFile);
+                var buffer1 = File.ReadAllBytes(decryptedFile);
+                Assert.True(buffer0.Length == buffer1.Length);
+                for (var i = 0; i < buffer0.Length; i++)
+                {
+                    if (buffer0[i] != buffer1[i]) Assert.Fail("Decrypted file is not identical to original file.");
+                }
+            }
+            finally
+            {
+                File.Delete(encryptedFile);
+                File.Delete(decryptedFile);
+            }
         }
     }
 }
